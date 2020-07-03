@@ -30,7 +30,7 @@ Vue.component('create-book-component', {
                             <textarea name="description" id="description" class="form-control" rows="5"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-md">Save</button>
+                        <button type="submit" class="btn btn-primary btn-md btn-block">Save</button>
                     </form>
                 </div>
             </div>

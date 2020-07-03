@@ -19,6 +19,7 @@ class BookController extends Controller
 
     public function create()
     {
+        dd(Carbon::now());
         return view('member.books.create');
     }
 
