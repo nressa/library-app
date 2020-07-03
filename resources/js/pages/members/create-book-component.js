@@ -35,5 +35,11 @@ Vue.component('create-book-component', {
                 </div>
             </div>
         </div>
-    `
+    `,
+    mounted(){
+        this.fetchGenres()
+    },
+    mixins: [GenreMixin],
+    methods:{
+    }
 })

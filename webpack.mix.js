@@ -16,6 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
 
    mix.scripts(
       [
+          'resources/js/services/genre-mixin.js',
           'resources/js/pages/members/create-book-component.js',
           'resources/js/pages/book-vue-instance.js',
       ],

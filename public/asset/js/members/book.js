@@ -1,3 +1,15 @@
+const GenreMixin = {
+    methods:{
+        fetchGenres(){
+            axios.get('/api/genres')
+            .then(response => {
+                console.log(response)
+            })
+            .catch(err => {
+                console.log(err)});
+            }
+    }
+}
 Vue.component('create-book-component', {
     template:
     `
@@ -35,7 +47,13 @@ Vue.component('create-book-component', {
                 </div>
             </div>
         </div>
-    `
+    `,
+    mounted(){
+        this.fetchGenres()
+    },
+    mixins: [GenreMixin],
+    methods:{
+    }
 })
 
 const app = new Vue({
