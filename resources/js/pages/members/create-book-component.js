@@ -11,9 +11,14 @@ Vue.component('create-book-component', {
                             <label for="title" class="font-weight-bold">Title</label>
                             <input name="title" id="title" class="form-control" type="text" />
                         </div>
-                        <div class="form-group">
-                            <label for="title" class="font-weight-bold">Author</label>
-                            <input name="title" id="title" class="form-control" type="text" />
+                        <div class="form-group  form-row">
+                            <label class="font-weight-bold col-md-12">Author</label>
+                            <input name="author[]" class="form-control col-md-10" type="text" />
+                            <div class="col-md-2">
+                                <button class="btn btn-primary btn-md rounded-circle font-weight-bold" v-on:click="addAuthor">+</button>
+                            </div>
+                        </div>
+                        <div id="groupAuthor" class="form-group form-group-author">
                         </div>
                         <div class="form-group">
                             <label for="date_published" class="font-weight-bold">Date Published</label>
@@ -41,6 +46,19 @@ Vue.component('create-book-component', {
     mixins: [GenreMixin],
     mounted() {
         this.fetchGenres()
+    },
+    methods: {
+        addAuthor(e) 
+        {
+            e.preventDefault()
+            
+            var new_row = document.createElement("input");
+            new_row.setAttribute("class", "form-control mt-2");
+            new_row.setAttribute("name", "author[]");
+
+            var element = document.getElementById("groupAuthor");
+            element.appendChild(new_row)
+        }
     },
     computed: {
       filterGenre() {
