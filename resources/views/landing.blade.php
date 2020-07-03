@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h3 class="text-center pt-5 font-weight-bold">E-library</h3>
+            <h1 class="text-center pt-5 font-weight-bold">E-library</h1>
             <p class="text-center">Your online library!</p>
         </div>
         <div class="col-md-3">
