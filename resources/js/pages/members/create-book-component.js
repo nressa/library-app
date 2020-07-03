@@ -21,8 +21,10 @@ Vue.component('create-book-component', {
                         </div>
                         <div class="form-group">
                             <label for="genres" class="font-weight-bold">Genre</label>
+                            
                             <select name="genres" id="genres" class="form-control" multiple>
                                 <option disabled selected>--Select Options--</option>
+                                <option v-for="(option, i) in filterGenre" :index="i" :value="option.id">{{ option.name }}</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -36,10 +38,14 @@ Vue.component('create-book-component', {
             </div>
         </div>
     `,
-    mounted(){
+    mixins: [GenreMixin],
+    mounted() {
         this.fetchGenres()
     },
-    mixins: [GenreMixin],
-    methods:{
+    computed: {
+      filterGenre() {
+        return this.$store.getters.getGenres
+      },
     }
+
 })

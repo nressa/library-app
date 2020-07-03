@@ -1,12 +1,14 @@
 const GenreMixin = {
     methods:{
         fetchGenres(){
+            var app = this
             axios.get('/api/genres')
             .then(response => {
-                console.log(response)
+                app.$store.dispatch("setGenres", { genres: response.data })
             })
             .catch(err => {
-                console.log(err)});
-            }
+                console.log(err)
+            });
+        }
     }
 }

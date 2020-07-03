@@ -14,6 +14,6 @@ class ApiGenreController extends Controller
         $genreService = new GenreService();
         $genres = $genreService->list();
 
-        return response()->json($genres);
+        return $genres;
     }
 }
