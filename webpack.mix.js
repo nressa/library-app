@@ -13,3 +13,10 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+   mix.scripts(
+      [
+          'resources/js/pages/members/create-book-component.js',
+          'resources/js/pages/book-vue-instance.js',
+      ],
+      'public/asset/js/members/book.js')
