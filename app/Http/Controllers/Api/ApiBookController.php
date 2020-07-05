@@ -15,12 +15,16 @@ class ApiBookController extends Controller
     {
         $bookService = new BookService;
         $authorService = new AuthorService;
+        $genreService = new GenreService;
         $bookId = $bookService->storeBook($request);
 
         if($bookId != false){
             $arrAuthor = explode(',', $request->authors);
-            $result = $authorService->storeAuthor($bookId, $arrAuthor);
+            $authors = $authorService->storeAuthor($bookId, $arrAuthor);
+            
+            $arrAuthor = explode(',', $request->selected_genres);
+            $genres = $genreService->storeBookToGenre($bookId, $arrAuthor);
         }
-        return $result;
+        return $request;
     }
 }
