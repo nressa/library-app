@@ -13131,7 +13131,7 @@ Vue.component('create-book-component', {
     `
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-6 col-sm-8 col-12">
+                <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
                             <h3 class="text-center pt-5 pb-2 font-weight-bold">Add To List</h3>
@@ -13143,8 +13143,8 @@ Vue.component('create-book-component', {
                                 </div>
                                 <div class="form-group  form-row">
                                     <label class="font-weight-bold col-md-12">Author</label>
-                                    <input name="author" class="form-control col-md-10" type="text" />
-                                    <div class="col-md-2">
+                                    <input name="author" class="form-control col-md-11 col-sm-10 col-10" type="text" />
+                                    <div class="float-right ml-1">
                                         <button class="btn btn-primary btn-md rounded-circle font-weight-bold" v-on:click="addAuthor">+</button>
                                     </div>
                                 </div>

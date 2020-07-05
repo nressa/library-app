@@ -10,12 +10,14 @@ class BookService
 {
     public function storeRecord($data)
     {
-        $book = "asd";
         $book = Book::insert([
-                'title'       => $data->title,
-                'description'   => $data->description,
-                'date_published'   => $data->date_published,
-                'fk_user'   => $data->userId,
+            'title'       => $data->title,
+            'description'   => $data->description,
+            'date_published'   => $data->date_published,
+            'fk_user'   => $data->userId,
+            'deleted'   => 0,
+            'created_at'   => Carbon::now(),
+            'updated_at'   => Carbon::now(),
         ]);
 
         return response()->json($data);

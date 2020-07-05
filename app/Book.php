@@ -12,6 +12,7 @@ class Book extends Model
                                 'date_published', 
                                 'fk_user', 
                                 'description', 
+                                'deleted', 
                                 'created_at', 
                                 'updated_at'
                         ];

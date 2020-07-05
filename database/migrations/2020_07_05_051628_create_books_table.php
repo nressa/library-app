@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('date_published');
+            $table->tinyInteger('deleted');
             $table->bigInteger('fk_user');
             $table->timestamps();
         });
