@@ -17,7 +17,7 @@ const BookMixin = {
                 data: bodyFormData,
                 })
             .then(response => {
-                console.log(response)
+                app.$store.dispatch("setBookId", { bookId: response.data })
             })
             .catch(err => {
                 console.log(err)
