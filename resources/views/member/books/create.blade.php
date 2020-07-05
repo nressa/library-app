@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<create-book-component></create-book-component>
+
+<create-book-component user-id="{!! Auth::id() !!}" user-email="{!! Auth::user()->email !!}">
+</create-book-component>
+
 @endsection
 
 @section('scripts')  

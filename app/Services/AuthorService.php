@@ -3,22 +3,16 @@
 namespace App;
 
 use DB;
-use App\Genre;
-use App\BookGenre;
+use App\Book;
 use Carbon\Carbon;
 
-class GenreService
+class AuthorService
 {
-    public function list()
-    {
-        return Genre::get();
-    }      
-    
-    public function storeBookToGenre($bookId, $data)
+    public function storeAuthor($bookId, $data)
     {
         for($i = 0; $i < count($data); $i++) {
-            $book = BookGenre::insert([
-                'fk_genre' => $data[$i] ,  
+            $book = Author::insert([
+                'name' => $data[$i] ,  
                 'fk_book' => $bookId, 
                 'deleted' => 0,
                 'created_at' => Carbon::now(), 
@@ -27,5 +21,5 @@ class GenreService
         }
 
         return $data;
-    }     
+    }        
 }

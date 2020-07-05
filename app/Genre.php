@@ -9,7 +9,7 @@ class Genre extends Model
     protected $table = 'genres';
 
     protected $fillable = [
-        'genres', 'created_at', 'updatedt_at',
+        'genres', 'created_at', 'updated_at',
     ];
 
 }
