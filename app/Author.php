@@ -10,6 +10,7 @@ class Author extends Model
 
     protected $fillable = [     'name', 
                                 'deleted', 
+                                'fk_book', 
                                 'created_at', 
                                 'updated_at'
                         ];

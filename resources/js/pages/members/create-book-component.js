@@ -92,6 +92,8 @@ Vue.component('create-book-component', {
                         this.selected_genres,
                         this.description
                     )
+            
+                    this.authors = null
         }
     },
     computed: {

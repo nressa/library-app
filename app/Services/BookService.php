@@ -8,18 +8,29 @@ use Carbon\Carbon;
 
 class BookService
 {
-    public function storeRecord($data)
+    public function storeBook($data)
     {
-        $book = Book::insert([
-            'title'       => $data->title,
-            'description'   => $data->description,
-            'date_published'   => $data->date_published,
-            'fk_user'   => $data->userId,
-            'deleted'   => 0,
-            'created_at'   => Carbon::now(),
-            'updated_at'   => Carbon::now(),
-        ]);
+        $book =  Book::where('title', '=' , $data->title)
+                    ->where('fk_user', '=' , $data->userId)
+                    ->count();
 
-        return response()->json($data);
+            if($book == 0){
+                $newBook = new Book;
+
+                $newBook->title = $data->title;
+                $newBook->fk_user = $data->userId;
+                $newBook->description = $data->description;
+                $newBook->date_published = $data->date_published;
+                $newBook->deleted = 0;
+                $newBook->created_at = Carbon::now();
+                $newBook->updated_at = Carbon::now();
+                $newBook->save();
+
+                $newBookId = $newBook->id;
+                return $newBookId;
+
+            }
+
+        return response()->json(false);
     }        
 }
