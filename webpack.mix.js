@@ -18,6 +18,7 @@ mix.scripts(
     [
         'public/js/vue.js',
         'public/js/vuex.js',
+        'resources/js/services/book-mixin.js',
         'resources/js/services/genre-mixin.js',
         'resources/js/storage/genre.js',
         'resources/js/pages/members/create-book-component.js',
