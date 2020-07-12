@@ -13175,7 +13175,7 @@ const genre = {
     }
 }
 
-Vue.component('show-book-component', {
+Vue.component('list-book-component', {
     template:
     `
         <div class="container">
@@ -13183,8 +13183,23 @@ Vue.component('show-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fas fa-book"></i> Create</h3>
-                            <hr class="pb-4"/>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fas fa-book"></i> List</h3>
+                            <div class="table-responsive">
+                                <table class="table border">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th width="75%">Title</th>
+                                            <th>Date Posted</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(book, i) in books" :index="i">
+                                            <td>{{ book.title }}</td>
+                                            <td>{{ book.created_at }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -13192,26 +13207,18 @@ Vue.component('show-book-component', {
         </div>
     `,
     props: ['userId', 'userEmail'],
-    data() {
-        return {
-            title: null,
-            authors: [],
-            date_published: null,
-            selected_genres: [],
-            description: null,
-            data: []
-        }
-    },
     mixins: [GenreMixin, BookMixin],
     mounted() {
-        this.fetchGenres()
-        this.showBook()
+        this.showBooks()
     },
     methods: {
     },
     computed: {
       filterGenre() {
         return this.$store.getters.getGenres
+      },
+      books() {
+        return this.$store.getters.getBooks
       },
     }
 

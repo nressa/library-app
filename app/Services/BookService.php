@@ -40,5 +40,12 @@ class BookService
     {
         $book = Book::where('id', $id)->where('deleted',0)->get();
         return $book;
-    }     
+    }   
+
+    public function list()
+    {
+
+        $books = Book::where('deleted',0)->get();
+        return $books;
+    }  
 }

@@ -28,6 +28,7 @@ Vue.component('show-book-component', {
     mixins: [GenreMixin, BookMixin],
     mounted() {
         this.fetchGenres()
+        this.showBook()
     },
     methods: {
     },
