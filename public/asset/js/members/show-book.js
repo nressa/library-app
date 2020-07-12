@@ -13095,8 +13095,6 @@ const BookMixin = {
             console.log(bookId)
         },
         showBooks(url){
-            console.log(url)
-
             axios({
                 method: 'get',
                 url: url,

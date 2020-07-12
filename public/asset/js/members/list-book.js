@@ -13095,8 +13095,6 @@ const BookMixin = {
             console.log(bookId)
         },
         showBooks(url){
-            console.log(url)
-
             axios({
                 method: 'get',
                 url: url,
@@ -13216,9 +13214,16 @@ Vue.component('list-book-component', {
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="btn" @click="paginatePrev()" class="btn btn-dark"><<</button>
-                                            <button type="btn" @click="paginateNext" class="float-right btn btn-dark">>></button>
+                                        <div class="col-md-2 col-sm-2 col-12">
+                                            <button type="button" @click="paginatePrev()" class="btn btn-dark btn-block"><i class="fa fa-chevron-left"></i></button>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-12">
+                                            <div v-for="pageNumber in books.last_page" class="d-inline">
+                                                <button type="button" class="btn btn-md btn-dark d-inline rounded-0" @click="redirectByPage(pageNumber)">{{pageNumber}}</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12">
+                                            <button type="button" @click="paginateNext" class="btn btn-dark btn-block"><i class="fa fa-chevron-right"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -13231,8 +13236,13 @@ Vue.component('list-book-component', {
     `,
     props: ['userId', 'userEmail'],
     mixins: [GenreMixin, BookMixin],
+    data() {
+        return {
+            url: '/api/books'
+        }
+    },
     mounted() {
-        this.showBooks('/api/books')
+        this.showBooks(this.url)
     },
     methods: {
         paginatePrev(){
@@ -13244,6 +13254,9 @@ Vue.component('list-book-component', {
             if(this.books.next_page_url){
                 this.showBooks(this.books.next_page_url)
             }
+        },
+        redirectByPage(pageNumber){
+            this.showBooks(this.url+"?page="+pageNumber)
         }
     },
     computed: {

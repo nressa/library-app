@@ -15,6 +15,7 @@ class ApiBookController extends Controller
     {
         $bookService = new BookService;
         $books = $bookService->list();   
+        $books = $books->paginate(2);   
 
         return response()->json([
             'status' => 'success',
