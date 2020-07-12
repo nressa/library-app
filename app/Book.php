@@ -16,4 +16,16 @@ class Book extends Model
                                 'created_at', 
                                 'updated_at'
                         ];
+
+    public function bookToGenres()
+    {
+        return $this->hasMany('App\BookGenre', 'fk_book', 'id');
+
+    }
+
+    public function author()
+    {
+        return $this->hasMany('App\Author', 'fk_book', 'id');
+
+    }
 }

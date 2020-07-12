@@ -4,6 +4,8 @@ namespace App;
 
 use DB;
 use App\Book;
+use App\Genre;
+use App\Author;
 use Carbon\Carbon;
 
 class BookService
@@ -32,5 +34,11 @@ class BookService
             }
 
         return response()->json(false);
-    }        
+    }   
+
+    public function showBook($id)
+    {
+        $book = Book::where('id', $id)->where('deleted',0)->get();
+        return $book;
+    }     
 }

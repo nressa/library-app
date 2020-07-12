@@ -17,7 +17,7 @@ const BookMixin = {
                 data: bodyFormData,
                 })
             .then(response => {
-                console.log(response)
+                window.location.href ="/books/" + response.data
             })
             .catch(err => {
                 console.log(err)
