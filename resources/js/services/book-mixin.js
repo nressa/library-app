@@ -28,14 +28,16 @@ const BookMixin = {
             var bookId = this.$store.getters.getActiveId
             console.log(bookId)
         },
-        showBooks(){
+        showBooks(url){
+            console.log(url)
 
             axios({
                 method: 'get',
-                url: '/api/books',
+                url: url,
                 })
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
+                app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
             })
             .catch(err => {
                 console.log(err)

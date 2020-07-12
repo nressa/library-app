@@ -6,7 +6,7 @@ Vue.component('create-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fas fa-pencil"></i> Add To List</h3>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-pencil"></i> Add To List</h3>
                             <hr class="pb-4"/>
                             <form method="post" @submit="submitForm">
                                 <div class="form-group">

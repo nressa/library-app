@@ -13094,14 +13094,16 @@ const BookMixin = {
             var bookId = this.$store.getters.getActiveId
             console.log(bookId)
         },
-        showBooks(){
+        showBooks(url){
+            console.log(url)
 
             axios({
                 method: 'get',
-                url: '/api/books',
+                url: url,
                 })
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
+                app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
             })
             .catch(err => {
                 console.log(err)
@@ -13152,7 +13154,7 @@ Vue.component('create-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fas fa-pencil"></i> Add To List</h3>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-pencil"></i> Add To List</h3>
                             <hr class="pb-4"/>
                             <form method="post" @submit="submitForm">
                                 <div class="form-group">

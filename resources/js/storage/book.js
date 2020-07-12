@@ -1,7 +1,8 @@
 const book = {
     state: {
         activeId: [],
-        books: []
+        books: [],
+        currPage: null
     },
     mutations: {
         SET_ACTIVE_ID(state, activeId) {
@@ -9,6 +10,9 @@ const book = {
         },
         SET_BOOKS(state, books) {
             state.books = books
+        },
+        SET_CURRENT_PAGE(state, currPage) {
+            state.currPage = currPage
         }
     },
     actions: {
@@ -17,6 +21,9 @@ const book = {
         },
         setBooks({ commit }, { books }) {
             commit('SET_BOOKS', books)
+        },
+        setCurrentPage({ commit }, { currPage }) {
+            commit('SET_CURRENT_PAGE', currPage)
         }
     },
     getters: {
@@ -25,6 +32,9 @@ const book = {
         },
         getBooks: state => {
           return state.books
+        },
+        getCurrentPage: state => {
+          return state.currPage
         }
     }
 }

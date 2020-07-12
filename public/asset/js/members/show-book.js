@@ -13094,14 +13094,16 @@ const BookMixin = {
             var bookId = this.$store.getters.getActiveId
             console.log(bookId)
         },
-        showBooks(){
+        showBooks(url){
+            console.log(url)
 
             axios({
                 method: 'get',
-                url: '/api/books',
+                url: url,
                 })
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
+                app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
             })
             .catch(err => {
                 console.log(err)
@@ -13126,7 +13128,8 @@ const GenreMixin = {
 const book = {
     state: {
         activeId: [],
-        books: []
+        books: [],
+        currPage: null
     },
     mutations: {
         SET_ACTIVE_ID(state, activeId) {
@@ -13134,6 +13137,9 @@ const book = {
         },
         SET_BOOKS(state, books) {
             state.books = books
+        },
+        SET_CURRENT_PAGE(state, currPage) {
+            state.currPage = currPage
         }
     },
     actions: {
@@ -13142,6 +13148,9 @@ const book = {
         },
         setBooks({ commit }, { books }) {
             commit('SET_BOOKS', books)
+        },
+        setCurrentPage({ commit }, { currPage }) {
+            commit('SET_CURRENT_PAGE', currPage)
         }
     },
     getters: {
@@ -13150,6 +13159,9 @@ const book = {
         },
         getBooks: state => {
           return state.books
+        },
+        getCurrentPage: state => {
+          return state.currPage
         }
     }
 }
@@ -13183,7 +13195,7 @@ Vue.component('show-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fas fa-book"></i> Create</h3>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-file"></i> Create</h3>
                             <hr class="pb-4"/>
                         </div>
                     </div>

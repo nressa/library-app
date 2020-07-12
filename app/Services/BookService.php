@@ -45,7 +45,7 @@ class BookService
     public function list()
     {
 
-        $books = Book::where('deleted',0)->get();
+        $books = Book::where('deleted',0)->paginate(5);
         return $books;
     }  
 }
