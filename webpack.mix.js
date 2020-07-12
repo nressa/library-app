@@ -47,6 +47,7 @@ mix.scripts(
         'resources/js/services/genre-mixin.js',
         'resources/js/storage/book.js',
         'resources/js/storage/genre.js',
+        'resources/js/components/book-row-component.js',
         'resources/js/pages/members/list-book-component.js',
         'resources/js/pages/book-vue-instance.js',
     ],

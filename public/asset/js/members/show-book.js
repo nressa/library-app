@@ -13092,7 +13092,6 @@ const BookMixin = {
         },
         showBook(){
             var bookId = this.$store.getters.getActiveId
-            console.log(bookId)
         },
         showBooks(url){
             axios({
@@ -13193,7 +13192,7 @@ Vue.component('show-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-file"></i> Create</h3>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-file"></i> Title</h3>
                             <hr class="pb-4"/>
                         </div>
                     </div>

@@ -13092,7 +13092,6 @@ const BookMixin = {
         },
         showBook(){
             var bookId = this.$store.getters.getActiveId
-            console.log(bookId)
         },
         showBooks(url){
             axios({

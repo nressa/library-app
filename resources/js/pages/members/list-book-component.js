@@ -6,7 +6,7 @@ Vue.component('list-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-files"></i> List <span class="badge badge-success">{{ books.total }}</span> </h3>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"></i> List <small class="badge badge-success">{{ books.total }}</small> </h3>
                             <hr class="pb-3"/>
                             <div class="table-responsive">
                                 <div class="container-fluid">
@@ -19,12 +19,7 @@ Vue.component('list-book-component', {
                                         </div>
                                     </div>
                                     <div v-for="(book, i) in books.data" :index="i">
-                                        <div class="card mb-2 border-secondary">
-                                            <div class="row p-2">
-                                                <div class="col-md-8 col-sm-8 col-9">{{ book.title }}</div>
-                                                <div class="col-md-4 col-sm-4 col-3">{{ book.created_at }}</div>
-                                            </div>
-                                        </div>
+                                        <book-row-component :book="book"></book-row-component>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2 col-sm-2 col-12">
@@ -54,6 +49,7 @@ Vue.component('list-book-component', {
             url: '/api/books'
         }
     },
+
     mounted() {
         this.showBooks(this.url)
     },
