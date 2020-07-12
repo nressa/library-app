@@ -21,5 +21,11 @@ class AuthorService
         }
 
         return $data;
-    }        
+    }   
+
+    public function showAuthor($id)
+    {
+        $authors = Author::where('fk_book', $id)->get();
+        return $authors;
+    }     
 }

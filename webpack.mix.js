@@ -25,3 +25,30 @@ mix.scripts(
         'resources/js/pages/book-vue-instance.js',
     ],
     'public/asset/js/members/book.js')
+
+mix.scripts(
+    [
+        'public/js/vue.js',
+        'public/js/vuex.js',
+        'resources/js/services/book-mixin.js',
+        'resources/js/services/genre-mixin.js',
+        'resources/js/storage/book.js',
+        'resources/js/storage/genre.js',
+        'resources/js/pages/members/show-book-component.js',
+        'resources/js/pages/book-vue-instance.js',
+    ],
+    'public/asset/js/members/show-book.js')
+
+mix.scripts(
+    [
+        'public/js/vue.js',
+        'public/js/vuex.js',
+        'resources/js/services/book-mixin.js',
+        'resources/js/services/genre-mixin.js',
+        'resources/js/storage/book.js',
+        'resources/js/storage/genre.js',
+        'resources/js/components/book-row-component.js',
+        'resources/js/pages/members/list-book-component.js',
+        'resources/js/pages/book-vue-instance.js',
+    ],
+    'public/asset/js/members/list-book.js')

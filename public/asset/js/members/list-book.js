@@ -13122,6 +13122,47 @@ const GenreMixin = {
         }
     }
 }
+const book = {
+    state: {
+        activeId: [],
+        books: [],
+        currPage: null
+    },
+    mutations: {
+        SET_ACTIVE_ID(state, activeId) {
+            state.activeId = activeId
+        },
+        SET_BOOKS(state, books) {
+            state.books = books
+        },
+        SET_CURRENT_PAGE(state, currPage) {
+            state.currPage = currPage
+        }
+    },
+    actions: {
+        setActiveId({ commit }, { activeId }) {
+            commit('SET_ACTIVE_ID', activeId)
+        },
+        setBooks({ commit }, { books }) {
+            commit('SET_BOOKS', books)
+        },
+        setCurrentPage({ commit }, { currPage }) {
+            commit('SET_CURRENT_PAGE', currPage)
+        }
+    },
+    getters: {
+        getActiveId: state => {
+          return state.activeId
+        },
+        getBooks: state => {
+          return state.books
+        },
+        getCurrentPage: state => {
+          return state.currPage
+        }
+    }
+}
+
 const genre = {
     state: {
         genres: []
@@ -13143,7 +13184,33 @@ const genre = {
     }
 }
 
-Vue.component('create-book-component', {
+Vue.component('book-row-component', {
+    template:
+    `
+	    <div class="card mb-2 border-secondary" @click="openBook(book.id)">
+	        <div class="row p-2">
+	            <div class="col-md-8 col-sm-7 col-12 font-weight-bold">{{ book.title }}</div>
+	            <div class="col-md-4 col-sm-5 col-12"><i class="fa fa-clock-o"></i> {{ book.date_created }}</div>
+	            <div class="col-md-12">
+	                <p class="m-0 p-0"><i class="fa fa-users"></i> Authors:</p>
+	                <div v-for="author in book.authors">
+	                    <p class="m-0 p-0">{{ author.name }}</p>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    `,
+    props: ['book'],
+    mixins: [GenreMixin, BookMixin],
+    methods: {
+    	openBook(id){
+    		app.$store.dispatch("setActiveId", { activeId: id })
+    		window.location.href ="/books/" + id
+    	}
+    }
+})
+
+Vue.component('list-book-component', {
     template:
     `
         <div class="container">
@@ -13151,41 +13218,36 @@ Vue.component('create-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-pencil"></i> Add To List</h3>
-                            <hr class="pb-4"/>
-                            <form method="post" @submit="submitForm">
-                                <div class="form-group">
-                                    <label for="title" class="font-weight-bold">Title</label>
-                                    <input name="title" id="title" class="form-control" type="text" v-model="title" />
-                                </div>
-                                <div class="form-group  form-row">
-                                    <label class="font-weight-bold col-md-12">Author</label>
-                                    <input name="author" class="form-control col-md-11 col-sm-10 col-10" type="text" />
-                                    <div class="float-right ml-1">
-                                        <button class="btn btn-primary btn-md rounded-circle font-weight-bold" v-on:click="addAuthor">+</button>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold"></i> List <small class="badge badge-success">{{ books.total }}</small> </h3>
+                            <hr class="pb-3"/>
+                            <div class="table-responsive">
+                                <div class="container-fluid">
+                                    <div class="bg-light">
+                                        <div class="card border-0 mb-2">
+                                            <div class="row p-2">
+                                                <div class="col-md-8 col-sm-8 col-9 h5">Title</div>
+                                                <div class="col-md-4 col-sm-4 col-3 h5">Date Posted</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-for="(book, i) in books.data" :index="i">
+                                        <book-row-component :book="book"></book-row-component>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2 col-12">
+                                            <button type="button" @click="paginatePrev()" class="btn btn-dark btn-block"><i class="fa fa-chevron-left"></i></button>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-12">
+                                            <div v-for="pageNumber in books.last_page" class="d-inline">
+                                                <button type="button" class="btn btn-md btn-dark d-inline rounded-0" @click="redirectByPage(pageNumber)">{{pageNumber}}</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12">
+                                            <button type="button" @click="paginateNext" class="btn btn-dark btn-block"><i class="fa fa-chevron-right"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="groupAuthor" class="form-group form-group-author">
-                                </div>
-                                <div class="form-group">
-                                    <label for="date_published" class="font-weight-bold">Date Published</label>
-                                    <input v-model="date_published" id="date_published" class="form-control" type="date" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="genres" class="font-weight-bold">Genre</label>
-                                    
-                                    <select v-model="selected_genres" id="genres" class="form-control" multiple>
-                                        <option disabled selected>--Select Options--</option>
-                                        <option v-for="(option, i) in filterGenre" :index="i" :value="option.id">{{ option.name }}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description" class="font-weight-bold">Description</label>
-                                    <textarea v-model="description" id="description" class="form-control" rows="5"></textarea>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-md btn-block">Save</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -13193,57 +13255,40 @@ Vue.component('create-book-component', {
         </div>
     `,
     props: ['userId', 'userEmail'],
+    mixins: [GenreMixin, BookMixin],
     data() {
         return {
-            title: null,
-            authors: [],
-            date_published: null,
-            selected_genres: [],
-            description: null,
-            data: []
+            url: '/api/books'
         }
     },
-    mixins: [GenreMixin, BookMixin],
+
     mounted() {
-        this.fetchGenres()
+        this.showBooks(this.url)
     },
     methods: {
-        addAuthor(e) 
-        {
-            e.preventDefault()
-            
-            var new_row = document.createElement("input");
-            new_row.setAttribute("class", "form-control mt-2");
-            new_row.setAttribute("name", "author");
-
-            var element = document.getElementById("groupAuthor");
-            element.appendChild(new_row)
-        },
-        submitForm(e)
-        {
-
-            e.preventDefault()
-            var inputfields = document.getElementsByName("author");
-            var ar_inputflds = inputfields.length;
-            for (var i = 0; i < ar_inputflds; i++) {
-                this.authors.push(inputfields[i].value);
+        paginatePrev(){
+            if(this.books.prev_page_url){
+                this.showBooks(this.books.prev_page_url)
             }
-
-            this.store(this.userId, 
-                        this.userEmail, 
-                        this.title,
-                        this.authors,
-                        this.date_published,
-                        this.selected_genres,
-                        this.description
-                    )
-            
-                    this.authors = null
+        },
+        paginateNext(){
+            if(this.books.next_page_url){
+                this.showBooks(this.books.next_page_url)
+            }
+        },
+        redirectByPage(pageNumber){
+            this.showBooks(this.url+"?page="+pageNumber)
         }
     },
     computed: {
       filterGenre() {
         return this.$store.getters.getGenres
+      },
+      books() {
+        return this.$store.getters.getBooks
+      },
+      currPage() {
+        return this.$store.getters.getCurrentPage
       },
     }
 

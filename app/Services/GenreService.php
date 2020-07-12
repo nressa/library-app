@@ -27,5 +27,17 @@ class GenreService
         }
 
         return $data;
-    }     
+    }   
+
+    public function showBookToGenre($id)
+    {
+         $fkGenre = Book::find($id)->bookToGenres()->get();
+         $genres = [];
+
+        foreach ($fkGenre as $genre) {
+            $genres[] = Genre::where('id',$genre->fk_genre)->get();
+        }
+
+        return $genres;
+    }  
 }

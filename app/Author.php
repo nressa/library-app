@@ -14,4 +14,11 @@ class Author extends Model
                                 'created_at', 
                                 'updated_at'
                         ];
+
+
+    public function book()
+    {
+        return $this->belongsTo('App\Book', 'id', 'fk_book');
+    }
+
 }

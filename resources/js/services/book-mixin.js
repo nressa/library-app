@@ -17,7 +17,24 @@ const BookMixin = {
                 data: bodyFormData,
                 })
             .then(response => {
-                console.log(response)
+                app.$store.dispatch("setActiveId", { activeId: response.data })
+                window.location.href ="/books/" + response.data
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
+        showBook(){
+            var bookId = this.$store.getters.getActiveId
+        },
+        showBooks(url){
+            axios({
+                method: 'get',
+                url: url,
+                })
+            .then(response => {
+                app.$store.dispatch("setBooks", { books: response.data.books })
+                app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
             })
             .catch(err => {
                 console.log(err)
