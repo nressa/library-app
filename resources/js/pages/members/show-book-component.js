@@ -8,6 +8,10 @@ Vue.component('show-book-component', {
                         <div class="card-header bg-dark text-white">
                             <h3 class="d-inline"><i class="fa fa-thumb-tack"></i>  Title:</h3>
                             <h1 class="d-inline font-weight-bold">{{ book.title }}</h1>
+
+                            <button type="button" class="btn btn-danger float-right rounded-circle" title="Remove from collection" @click="removeBook">
+                            <i class="fa fa-trash fa-lg"></i>
+                            </button>
                         </div>
                         <div class="card-body">
                             <p>Date Created: <span class="font-weight-bold">{{  book.date_created }}</span></p>
@@ -49,6 +53,13 @@ Vue.component('show-book-component', {
         this.showBook()
     },
     methods: {
+        removeBook(){
+            var remove = confirm("Do you want to remove " + this.book.title + "from your collection?");
+
+            if(remove) {
+                alert(this.book.title + " was remove from your collection.")
+            }
+        }
     },
     computed: {
       book() {

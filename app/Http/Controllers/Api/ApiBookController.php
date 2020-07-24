@@ -58,4 +58,13 @@ class ApiBookController extends Controller
             'genres' => $genres
         ]);
     }
+
+    public function delete($id)
+    {
+
+        $bookService = new BookService;
+        $result = $bookService->remove($id);
+
+        return $result;
+    }
 }

@@ -48,4 +48,14 @@ class BookService
         $books = Book::where('deleted',0);
         return $books;
     }  
+
+    public function remove($bookId)
+    {
+
+        $book = Book::find($bookId);
+        $book->name = 'New book Name';
+        $book->save();
+
+        return $book;
+    }
 }

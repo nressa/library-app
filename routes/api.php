@@ -21,3 +21,4 @@ Route::get('/genres', 'ApiGenreController@index');
 Route::get('/books', 'ApiBookController@index');
 Route::post('/books/store', 'ApiBookController@store');
 Route::get('/books/show/{id}', 'ApiBookController@show');
+Route::post('/books/remove/{id}', 'ApiBookController@delete');
