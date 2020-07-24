@@ -13189,7 +13189,7 @@ const genre = {
 Vue.component('book-row-component', {
     template:
     `
-	    <div class="card mb-2 border-secondary" @click="openBook(book.id)">
+	    <div class="card mb-2 border-secondary" @click="openBook">
 	        <div class="row p-2">
 	            <div class="col-md-8 col-sm-7 col-12 font-weight-bold">{{ book.title }}</div>
 	            <div class="col-md-4 col-sm-5 col-12"><i class="fa fa-clock-o"></i> {{ book.date_created }}</div>
@@ -13205,9 +13205,9 @@ Vue.component('book-row-component', {
     props: ['book'],
     mixins: [GenreMixin, BookMixin],
     methods: {
-    	openBook(id){
-    		app.$store.dispatch("setActiveId", { activeId: id })
-    		window.location.href ="/books/" + id
+    	openBook(){
+    		app.$store.dispatch("setActiveId", { activeId: this.book.id })
+    		window.location.href ="/books/" + this.book.title + "/" + this.book.id
     	}
     }
 })
