@@ -17,6 +17,7 @@ class Book extends Model
                                 'updated_at'
                         ];
 
+                        
     protected $appends = [
                             'authors',
                             'date_created'

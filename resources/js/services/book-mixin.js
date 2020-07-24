@@ -1,4 +1,9 @@
 const BookMixin = {
+    data() {
+        return {
+            url: '/api/books'
+        }
+    },
     methods:{
         store(userId, email, title, authors, date_published, selected_genres, description){
             var app = this
@@ -25,16 +30,32 @@ const BookMixin = {
             });
         },
         showBook(){
-            var bookId = this.$store.getters.getActiveId
-        },
-        showBooks(url){
+            var url = window.location.pathname
+            var bookId = url.substring(url.lastIndexOf('/') + 1)
+
             axios({
                 method: 'get',
-                url: url,
+                url: this.url + '/show/' + bookId,
+                })
+            .then(response => {
+                app.$store.dispatch("setBook", { book: response.data.book })
+                app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
+                console.log(response.data.book)
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        },
+        showBooks(){
+            axios({
+                method: 'get',
+                url: this.url,
                 })
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
                 app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
+
             })
             .catch(err => {
                 console.log(err)

@@ -44,12 +44,6 @@ Vue.component('list-book-component', {
     `,
     props: ['userId', 'userEmail'],
     mixins: [GenreMixin, BookMixin],
-    data() {
-        return {
-            url: '/api/books'
-        }
-    },
-
     mounted() {
         this.showBooks(this.url)
     },
