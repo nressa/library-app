@@ -13101,6 +13101,7 @@ const BookMixin = {
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
                 app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
+
             })
             .catch(err => {
                 console.log(err)
@@ -13124,6 +13125,7 @@ const GenreMixin = {
 }
 const book = {
     state: {
+        bookId: null,
         activeId: [],
         books: [],
         currPage: null
@@ -13192,7 +13194,8 @@ Vue.component('show-book-component', {
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-file"></i> Title</h3>
+                            <h3 class="text-center pt-5 pb-2 font-weight-bold">
+                            <i class="fa fa-file"></i> Title</h3>
                             <hr class="pb-4"/>
                         </div>
                     </div>

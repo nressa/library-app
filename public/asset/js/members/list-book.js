@@ -13101,6 +13101,7 @@ const BookMixin = {
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
                 app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
+
             })
             .catch(err => {
                 console.log(err)
@@ -13124,6 +13125,7 @@ const GenreMixin = {
 }
 const book = {
     state: {
+        bookId: null,
         activeId: [],
         books: [],
         currPage: null
