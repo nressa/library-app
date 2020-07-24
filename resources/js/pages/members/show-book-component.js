@@ -5,10 +5,27 @@ Vue.component('show-book-component', {
             <div class="row justify-content-center">
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="d-inline"><i class="fa fa-thumb-tack"></i>  Title:</h3>
+                            <h1 class="d-inline font-weight-bold">{{ book.title }}</h1>
+                        </div>
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold">
-                            <i class="fa fa-file"></i> Title</h3>
-                            <hr class="pb-4"/>
+                            <p>Date Created: <span class="font-weight-bold">{{  book.date_created }}</span></p>
+                            <p>Date Updated: <span class="font-weight-bold">{{  book.date_updated }}</span></p>
+                
+                            <h3 class="mt-4"><i class="fa fa-calendar"></i> Date Published:</h3>
+                            <p>{{ book.date_published }}</p>
+
+                            <h3 class="mt-4"><i class="fa fa-users"></i> Authors:</h3>
+                            <p v-for="author in book.authors">{{ author.name }}</p>
+
+                            <h3 class="mt-4"><i class="fa fa-tags"></i> Genres:</h3>
+                            <div v-for="genre in genres">
+                                <p v-for="gen in genre" class="pt-0 pb-0 mt-0 mb-0">{{ gen.name }}</p>
+                            </div>
+
+                            <h3 class="mt-4"><i class="fa fa-info-circle"></i> Description:</h3>
+                            <p>{{ book.description }}</p>
                         </div>
                     </div>
                 </div>
@@ -34,8 +51,11 @@ Vue.component('show-book-component', {
     methods: {
     },
     computed: {
-      filterGenre() {
-        return this.$store.getters.getGenres
+      book() {
+        return this.$store.getters.getBook
+      },
+      genres() {
+        return this.$store.getters.getActiveGenre
       },
     }
 

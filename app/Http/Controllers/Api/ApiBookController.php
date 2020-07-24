@@ -47,17 +47,14 @@ class ApiBookController extends Controller
     {
         
         $bookService = new BookService;
-        $book = $bookService->showBook($id);   
+        $book = $bookService->showBook($id)->first();   
         
         $genreService = new GenreService;
         $genres = $genreService->showBookToGenre($id);
 
-        $authorService = new AuthorService;
-        $authors = $authorService->showAuthor($id);
 
         return response()->json([
             'book' => $book,
-            'authors' => $authors,
             'genres' => $genres
         ]);
     }

@@ -13065,6 +13065,11 @@
   })));
   
 const BookMixin = {
+    data() {
+        return {
+            url: '/api/books'
+        }
+    },
     methods:{
         store(userId, email, title, authors, date_published, selected_genres, description){
             var app = this
@@ -13091,12 +13096,27 @@ const BookMixin = {
             });
         },
         showBook(){
-            var bookId = this.$store.getters.getActiveId
-        },
-        showBooks(url){
+            var url = window.location.pathname
+            var bookId = url.substring(url.lastIndexOf('/') + 1)
+
             axios({
                 method: 'get',
-                url: url,
+                url: this.url + '/show/' + bookId,
+                })
+            .then(response => {
+                app.$store.dispatch("setBook", { book: response.data.book })
+                app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
+                console.log(response.data.book)
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        },
+        showBooks(){
+            axios({
+                method: 'get',
+                url: this.url,
                 })
             .then(response => {
                 app.$store.dispatch("setBooks", { books: response.data.books })
@@ -13128,7 +13148,8 @@ const book = {
         bookId: null,
         activeId: [],
         books: [],
-        currPage: null
+        currPage: null,
+        book: []
     },
     mutations: {
         SET_ACTIVE_ID(state, activeId) {
@@ -13139,6 +13160,9 @@ const book = {
         },
         SET_CURRENT_PAGE(state, currPage) {
             state.currPage = currPage
+        },
+        SET_BOOK(state, book) {
+            state.book = book
         }
     },
     actions: {
@@ -13150,6 +13174,9 @@ const book = {
         },
         setCurrentPage({ commit }, { currPage }) {
             commit('SET_CURRENT_PAGE', currPage)
+        },
+        setBook({ commit }, { book }) {
+            commit('SET_BOOK', book)
         }
     },
     getters: {
@@ -13161,27 +13188,40 @@ const book = {
         },
         getCurrentPage: state => {
           return state.currPage
+        },
+        getBook: state => {
+          return state.book
         }
     }
 }
 
 const genre = {
     state: {
-        genres: []
+        genres: [],
+        activeGenre: []
     },
     mutations: {
         SET_GENRES(state, genres) {
             state.genres = genres
+        },
+        SET_ACTIVE_GENRE(state, activeGenre) {
+            state.activeGenre = activeGenre
         }
     },
     actions: {
         setGenres({ commit }, { genres }) {
             commit('SET_GENRES', genres)
+        },
+        setActiveGenre({ commit }, { activeGenre }) {
+            commit('SET_ACTIVE_GENRE', activeGenre)
         }
     },
     getters: {
         getGenres: state => {
           return state.genres
+        },
+        getActiveGenre: state => {
+          return state.activeGenre
         }
     }
 }
@@ -13193,10 +13233,27 @@ Vue.component('show-book-component', {
             <div class="row justify-content-center">
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="d-inline"><i class="fa fa-thumb-tack"></i>  Title:</h3>
+                            <h1 class="d-inline font-weight-bold">{{ book.title }}</h1>
+                        </div>
                         <div class="card-body">
-                            <h3 class="text-center pt-5 pb-2 font-weight-bold">
-                            <i class="fa fa-file"></i> Title</h3>
-                            <hr class="pb-4"/>
+                            <p>Date Created: <span class="font-weight-bold">{{  book.date_created }}</span></p>
+                            <p>Date Updated: <span class="font-weight-bold">{{  book.date_updated }}</span></p>
+                
+                            <h3 class="mt-4"><i class="fa fa-calendar"></i> Date Published:</h3>
+                            <p>{{ book.date_published }}</p>
+
+                            <h3 class="mt-4"><i class="fa fa-users"></i> Authors:</h3>
+                            <p v-for="author in book.authors">{{ author.name }}</p>
+
+                            <h3 class="mt-4"><i class="fa fa-tags"></i> Genres:</h3>
+                            <div v-for="genre in genres">
+                                <p v-for="gen in genre" class="pt-0 pb-0 mt-0 mb-0">{{ gen.name }}</p>
+                            </div>
+
+                            <h3 class="mt-4"><i class="fa fa-info-circle"></i> Description:</h3>
+                            <p>{{ book.description }}</p>
                         </div>
                     </div>
                 </div>
@@ -13222,8 +13279,11 @@ Vue.component('show-book-component', {
     methods: {
     },
     computed: {
-      filterGenre() {
-        return this.$store.getters.getGenres
+      book() {
+        return this.$store.getters.getBook
+      },
+      genres() {
+        return this.$store.getters.getActiveGenre
       },
     }
 

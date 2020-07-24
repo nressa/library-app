@@ -38,7 +38,7 @@ class BookService
 
     public function showBook($id)
     {
-        $book = Book::where('id', $id)->where('deleted',0)->get();
+        $book = Book::where('id', $id)->where('deleted',0);
         return $book;
     }   
 
