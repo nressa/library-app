@@ -32,5 +32,11 @@ class BookService
             }
 
         return response()->json(false);
-    }        
+    } 
+    
+    public function detail($id)
+    {
+
+        
+    }
 }

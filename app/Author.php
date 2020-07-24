@@ -14,4 +14,6 @@ class Author extends Model
                                 'created_at', 
                                 'updated_at'
                         ];
+
+    return $this->hasOne('App\Book', 'fk_book');
 }

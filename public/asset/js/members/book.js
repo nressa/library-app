@@ -13084,6 +13084,22 @@ const BookMixin = {
                 })
             .then(response => {
                 app.$store.dispatch("setBookId", { bookId: response.data })
+                window.href="/books/" + response.data
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
+        show(){
+
+            axios({
+                method: 'get',
+                url: '/api/books/store',
+                data: bodyFormData,
+                })
+            .then(response => {
+                app.$store.dispatch("setBookId", { bookId: response.data })
+                window.href="/books/" + response.data
             })
             .catch(err => {
                 console.log(err)

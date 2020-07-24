@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/genres', 'ApiGenreController@index');
 Route::post('/books/store', 'ApiBookController@store');
+Route::post('/books/{slug}', 'ApiBookController@show');

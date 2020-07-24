@@ -24,8 +24,18 @@ class ApiBookController extends Controller
             
             $arrAuthor = explode(',', $request->selected_genres);
             $genres = $genreService->storeBookToGenre($bookId, $arrAuthor);
+
+            return $bookId;
         }
         
-        return $bookId;
+        return false;
+    }
+
+    public function show($slug)
+    {
+        $bookService = new BookService;
+        $book = $bookService->detail($slug);
+
+        return $book; 
     }
 }
