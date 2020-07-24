@@ -11,6 +11,18 @@ use Illuminate\Http\Request;
 class ApiBookController extends Controller
 {
     
+    public function index()
+    {
+        $bookService = new BookService;
+        $books = $bookService->list();   
+        $books = $books->paginate(5);   
+
+        return response()->json([
+            'status' => 'success',
+            'books' => $books
+        ]); 
+    }
+    
     public function store(Request $request)
     {
         $bookService = new BookService;
@@ -27,15 +39,26 @@ class ApiBookController extends Controller
 
             return $bookId;
         }
-        
-        return false;
+
+        return $bookId;
     }
-
-    public function show($slug)
+    
+    public function show($id)
     {
+        
         $bookService = new BookService;
-        $book = $bookService->detail($slug);
+        $book = $bookService->showBook($id);   
+        
+        $genreService = new GenreService;
+        $genres = $genreService->showBookToGenre($id);
 
-        return $book; 
+        $authorService = new AuthorService;
+        $authors = $authorService->showAuthor($id);
+
+        return response()->json([
+            'book' => $book,
+            'authors' => $authors,
+            'genres' => $genres
+        ]);
     }
 }

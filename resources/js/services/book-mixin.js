@@ -17,23 +17,25 @@ const BookMixin = {
                 data: bodyFormData,
                 })
             .then(response => {
-                app.$store.dispatch("setBookId", { bookId: response.data })
-                window.href="/books/" + response.data
+                app.$store.dispatch("setActiveId", { activeId: response.data })
+                window.location.href ="/books/" + response.data
             })
             .catch(err => {
                 console.log(err)
             });
         },
-        show(){
-
+        showBook(){
+            var bookId = this.$store.getters.getActiveId
+        },
+        showBooks(url){
             axios({
                 method: 'get',
-                url: '/api/books/store',
-                data: bodyFormData,
+                url: url,
                 })
             .then(response => {
-                app.$store.dispatch("setBookId", { bookId: response.data })
-                window.href="/books/" + response.data
+                app.$store.dispatch("setBooks", { books: response.data.books })
+                app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
+
             })
             .catch(err => {
                 console.log(err)

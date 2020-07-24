@@ -15,6 +15,7 @@ class BookController extends Controller
     public function index()
     {
 
+        return view('member.books.index');
     }
 
     public function create()
@@ -29,6 +30,10 @@ class BookController extends Controller
 
     public function show($id)
     {
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4436f335e375bc72fe733ba0928df5e57de614e
         return view('member.books.show');
     }
 
