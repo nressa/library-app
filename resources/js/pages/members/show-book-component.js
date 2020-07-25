@@ -5,7 +5,7 @@ Vue.component('show-book-component', {
             <div class="row justify-content-center">
                 <div class="col-md-8 col-sm-10 col-12">
                     <div class="card shadow rounded mt-5 mb-5">
-                        <div class="card-header bg-dark text-white">
+                        <div class="card-header">
                             <h3 class="d-inline"><i class="fa fa-thumb-tack"></i>  Title:</h3>
                             <h1 class="d-inline font-weight-bold">{{ book.title }}</h1>
                             <div v-if="userId == book.fk_user" class="float-right">
@@ -47,7 +47,10 @@ Vue.component('show-book-component', {
                                 </p>
                             </div>
                             <div class="row m-4">
-                                <input type="text" class="form-control col-sm-8 col-10 rounded-0" />
+                                <select multiple class="form=oontroll col-sm-8 col-10 rounded-0">
+                                    <option disabled selected>--New Genre--</option>
+                                    <option v-for="(option, i) in genres" :index="i" :value="option.id">{{ option.name }}</option>
+                                </select>
                                 <button type="button" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> <span class="d-md-inline d-sm-none d-none">ADD NEW</span></button>
                             </div>
 
@@ -120,6 +123,9 @@ Vue.component('show-book-component', {
         },
         activeGenres() {
             return this.$store.getters.getActiveGenre
+        },
+        genres() {
+            return this.$store.getters.getGenres
         }
     }
 

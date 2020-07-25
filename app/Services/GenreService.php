@@ -5,6 +5,7 @@ namespace App;
 use DB;
 use App\Genre;
 use App\BookGenre;
+use App\Book;
 use Carbon\Carbon;
 
 class GenreService
@@ -40,4 +41,20 @@ class GenreService
 
         return $genres;
     }  
+
+    public function addGenreToBook($data)
+    {
+
+        $genre = BookGenre::insert([
+            'fk_genre' => $data->genreId ,  
+            'fk_book' => $data->bookId, 
+            'deleted' => 0,
+            'created_at' => Carbon::now(), 
+            'updated_at' =>Carbon::now()
+        ]); 
+
+        $book = Book::find($data->bookId);
+        $book->updated_at = Carbon::now();
+        $book->save();
+    }
 }

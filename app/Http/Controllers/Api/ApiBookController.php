@@ -63,6 +63,14 @@ class ApiBookController extends Controller
         return abort(404);
     }
 
+    public function addGenre(Request $request)
+    {
+        $genreService = new GenreService;
+        $result = $bookService->addGenreToBook($request);
+
+        return response($result);
+    }
+
     public function delete($id)
     {
 
