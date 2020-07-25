@@ -23,7 +23,7 @@ const BookMixin = {
                 })
             .then(response => {
                 app.$store.dispatch("setActiveId", { activeId: response.data })
-                window.location.href ="/books/" + response.data
+                window.location.href ="/books/" + title + "/" + response.data
             })
             .catch(err => {
                 console.log(err)
@@ -38,9 +38,28 @@ const BookMixin = {
                 url: this.url + '/show/' + bookId,
                 })
             .then(response => {
-                app.$store.dispatch("setBook", { book: response.data.book })
-                app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
-                console.log(response.data.book)
+                    app.$store.dispatch("setBook", { book: response.data.book })
+                    app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
+               
+            })
+            .catch(err => {
+                
+                if(err.response.status == 404){
+                    location.href = "/books"
+                }
+            });
+
+        },
+        removeBook(){
+            var url = window.location.pathname
+            var bookId = url.substring(url.lastIndexOf('/') + 1)
+
+            axios({
+                method: 'post',
+                url: this.url + '/remove/' + bookId,
+                })
+            .then(response => {
+                this.showBook()
             })
             .catch(err => {
                 console.log(err)

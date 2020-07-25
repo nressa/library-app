@@ -48,4 +48,15 @@ class BookService
         $books = Book::where('deleted',0);
         return $books;
     }  
+
+    public function remove($bookId)
+    {
+
+        $book = Book::find($bookId);
+        $book->deleted = 1;
+        $book->updated_at = Carbon::now();
+        $book->save();
+        
+        return $book;
+    }
 }

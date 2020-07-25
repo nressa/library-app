@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Exception;
 use App\AuthorService;
 use App\GenreService;
 use App\BookService;
@@ -52,10 +53,22 @@ class ApiBookController extends Controller
         $genreService = new GenreService;
         $genres = $genreService->showBookToGenre($id);
 
+        if($book){
+            return response()->json([
+                'book' => $book,
+                'genres' => $genres
+            ]);            
+        }
 
-        return response()->json([
-            'book' => $book,
-            'genres' => $genres
-        ]);
+        return abort(404);
+    }
+
+    public function delete($id)
+    {
+
+        $bookService = new BookService;
+        $result = $bookService->remove($id);
+
+        return response(['success: ' => true], 200);
     }
 }
