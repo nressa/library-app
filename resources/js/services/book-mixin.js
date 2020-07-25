@@ -38,12 +38,15 @@ const BookMixin = {
                 url: this.url + '/show/' + bookId,
                 })
             .then(response => {
-                app.$store.dispatch("setBook", { book: response.data.book })
-                app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
-                console.log(response.data.book)
+                    app.$store.dispatch("setBook", { book: response.data.book })
+                    app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
+               
             })
             .catch(err => {
-                console.log(err)
+                
+                if(err.response.status == 404){
+                    location.href = "/books"
+                }
             });
 
         },
@@ -57,7 +60,6 @@ const BookMixin = {
                 })
             .then(response => {
                 this.showBook()
-                console.log('deleted: '+response.data.book)
             })
             .catch(err => {
                 console.log(err)

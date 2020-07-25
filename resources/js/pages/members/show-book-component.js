@@ -57,18 +57,16 @@ Vue.component('show-book-component', {
 
             if(confirm("Do you want to remove " + this.book.title + "from your collection?")) {
                 this.removeBook()
-                console.log(1)
-                // alert(this.book.title + " was remove from your collection.")
             }
         }
     },
     computed: {
-      book() {
-        return this.$store.getters.getBook
-      },
-      genres() {
-        return this.$store.getters.getActiveGenre
-      },
+        book() {
+            return this.$store.getters.getBook
+        },
+        genres() {
+            return this.$store.getters.getActiveGenre
+        },
     }
 
 })

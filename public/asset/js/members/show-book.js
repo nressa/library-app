@@ -13104,12 +13104,15 @@ const BookMixin = {
                 url: this.url + '/show/' + bookId,
                 })
             .then(response => {
-                app.$store.dispatch("setBook", { book: response.data.book })
-                app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
-                console.log(response.data.book)
+                    app.$store.dispatch("setBook", { book: response.data.book })
+                    app.$store.dispatch("setActiveGenre", { activeGenre: response.data.genres })
+               
             })
             .catch(err => {
-                console.log(err)
+                
+                if(err.response.status == 404){
+                    location.href = "/books"
+                }
             });
 
         },
@@ -13123,7 +13126,6 @@ const BookMixin = {
                 })
             .then(response => {
                 this.showBook()
-                console.log('deleted: '+response.data.book)
             })
             .catch(err => {
                 console.log(err)
@@ -13302,18 +13304,16 @@ Vue.component('show-book-component', {
 
             if(confirm("Do you want to remove " + this.book.title + "from your collection?")) {
                 this.removeBook()
-                console.log(1)
-                // alert(this.book.title + " was remove from your collection.")
             }
         }
     },
     computed: {
-      book() {
-        return this.$store.getters.getBook
-      },
-      genres() {
-        return this.$store.getters.getActiveGenre
-      },
+        book() {
+            return this.$store.getters.getBook
+        },
+        genres() {
+            return this.$store.getters.getActiveGenre
+        },
     }
 
 })
