@@ -13095,7 +13095,7 @@ const BookMixin = {
                 console.log(err)
             });
         },
-        showBook(){
+        showBook() {
             var url = window.location.pathname
             var bookId = url.substring(url.lastIndexOf('/') + 1)
 
@@ -13116,7 +13116,7 @@ const BookMixin = {
             });
 
         },
-        removeBook(){
+        removeBook() {
             var url = window.location.pathname
             var bookId = url.substring(url.lastIndexOf('/') + 1)
 
@@ -13132,7 +13132,7 @@ const BookMixin = {
             });
 
         },
-        showBooks(){
+        showBooks() {
             axios({
                 method: 'get',
                 url: this.url,
@@ -13141,6 +13141,27 @@ const BookMixin = {
                 app.$store.dispatch("setBooks", { books: response.data.books })
                 app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
 
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
+        addBookGenre(data) {
+            var app = this
+            axios.post( this.url + '/add/genre', data)
+            .then(response => {
+                console.log('added')
+                this.showBook()
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
+        removeBookGenre(data) {
+            var app = this
+            axios.post( this.url + '/remove/genre', data)
+            .then(response => {
+                this.showBook()
             })
             .catch(err => {
                 console.log(err)
@@ -13160,17 +13181,6 @@ const GenreMixin = {
                 console.log(err)
             });
         },
-        addBookGenre(data) {
-            var app = this
-            axios.post('/api/books/add/genre', data)
-            .then(response => {
-                console.log('added')
-                this.showBook()
-            })
-            .catch(err => {
-                console.log(err)
-            });
-        }
     }
 }
 const book = {
@@ -13298,7 +13308,7 @@ Vue.component('show-book-component', {
                             <h3 class="mt-4"><i class="fa fa-tags"></i> Genres:</h3>
                             <div v-for="genre in activeGenres">
                                 <p v-for="gen in genre" class="mt-2">
-                                    <button id="" class="btn btn-danger btn-sm">
+                                    <button @click="removeGenre(gen.id)" class="btn btn-danger btn-sm">
                                         <i class="fa fa-times"></i>
                                     </button>
                                     {{ gen.name }}
@@ -13386,6 +13396,13 @@ Vue.component('show-book-component', {
                 alert('Select new genre for ' + this.book.title + '.')
             }
             
+        },
+        removeGenre(id){
+            var data = { 
+                            'id' : id,
+                            'bookId' : this.book.id
+                        }
+            this.removeBookGenre(data)
         }
     },
     computed: {

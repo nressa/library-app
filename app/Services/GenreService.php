@@ -19,11 +19,11 @@ class GenreService
     {
         for($i = 0; $i < count($data); $i++) {
 
-            $book = BookGenre::where('fk_genre', $data[$i])
+            $bookGenre = BookGenre::where('fk_genre', $data[$i])
                             ->where('fk_book', $bookId)
                             ->first();
 
-            if(!$book) {
+            if(!$bookGenre) {
 
                 $book = BookGenre::insert(
                     [   'fk_genre' => $data[$i] ,
@@ -32,6 +32,13 @@ class GenreService
                         'deleted' => 0, 
                         'updated_at' =>Carbon::now()
                     ]);
+            } else {
+                
+
+                $bookGenre = BookGenre::find($bookGenre->id);
+                $bookGenre->deleted = 0;
+                $bookGenre->updated_at = Carbon::now();
+                $bookGenre->save();
             }
 
         }
@@ -41,7 +48,7 @@ class GenreService
 
     public function showBookToGenre($id)
     {
-         $fkGenre = Book::find($id)->bookToGenres()->get();
+         $fkGenre = Book::find($id)->bookToGenres()->where('deleted',0)->get();
          $genres = [];
 
         foreach ($fkGenre as $genre) {
@@ -49,5 +56,15 @@ class GenreService
         }
 
         return $genres;
+    }
+
+    public function deletedBookToGenre($data)
+    {
+
+        $bookGenre = BookGenre::where('fk_genre', $data->id)
+                            ->where('fk_book', $data->bookId)
+                            ->update(['deleted' => 1, 'updated_at' => Carbon::now()]);
+        
+                            return true;
     }
 }

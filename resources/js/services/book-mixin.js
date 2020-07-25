@@ -29,7 +29,7 @@ const BookMixin = {
                 console.log(err)
             });
         },
-        showBook(){
+        showBook() {
             var url = window.location.pathname
             var bookId = url.substring(url.lastIndexOf('/') + 1)
 
@@ -50,7 +50,7 @@ const BookMixin = {
             });
 
         },
-        removeBook(){
+        removeBook() {
             var url = window.location.pathname
             var bookId = url.substring(url.lastIndexOf('/') + 1)
 
@@ -66,7 +66,7 @@ const BookMixin = {
             });
 
         },
-        showBooks(){
+        showBooks() {
             axios({
                 method: 'get',
                 url: this.url,
@@ -75,6 +75,27 @@ const BookMixin = {
                 app.$store.dispatch("setBooks", { books: response.data.books })
                 app.$store.dispatch("setCurrentPage", { books: response.data.books.current_page })
 
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
+        addBookGenre(data) {
+            var app = this
+            axios.post( this.url + '/add/genre', data)
+            .then(response => {
+                console.log('added')
+                this.showBook()
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
+        removeBookGenre(data) {
+            var app = this
+            axios.post( this.url + '/remove/genre', data)
+            .then(response => {
+                this.showBook()
             })
             .catch(err => {
                 console.log(err)

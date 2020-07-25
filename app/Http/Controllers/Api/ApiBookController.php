@@ -72,7 +72,6 @@ class ApiBookController extends Controller
         if($book->fk_user == $request->userId){
 
             $genreService = new GenreService;
-            // $arrGenre = explode(',', $request->selected_genres);
             $genres = $genreService->storeBookToGenre($request->bookId, $request->selected_genres);
 
             return response(['success' => true], 200);
@@ -89,5 +88,16 @@ class ApiBookController extends Controller
         $result = $bookService->remove($id);
 
         return response(['success: ' => true], 200);
+    }
+
+    public function removeGenre(Request $request)
+    {
+        $genreService = new GenreService;
+        $result = $genreService->deletedBookToGenre($request);
+
+        if($result){
+            return response(['success' => true], 200);     
+        }
+        return response(['success' => false], 500);  
     }
 }

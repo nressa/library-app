@@ -40,7 +40,7 @@ Vue.component('show-book-component', {
                             <h3 class="mt-4"><i class="fa fa-tags"></i> Genres:</h3>
                             <div v-for="genre in activeGenres">
                                 <p v-for="gen in genre" class="mt-2">
-                                    <button id="" class="btn btn-danger btn-sm">
+                                    <button @click="removeGenre(gen.id)" class="btn btn-danger btn-sm">
                                         <i class="fa fa-times"></i>
                                     </button>
                                     {{ gen.name }}
@@ -128,6 +128,13 @@ Vue.component('show-book-component', {
                 alert('Select new genre for ' + this.book.title + '.')
             }
             
+        },
+        removeGenre(id){
+            var data = { 
+                            'id' : id,
+                            'bookId' : this.book.id
+                        }
+            this.removeBookGenre(data)
         }
     },
     computed: {
