@@ -29,7 +29,7 @@ Vue.component('show-book-component', {
                             </div>
 
                             <h3 class="mt-4"><i class="fa fa-info-circle"></i> Description:</h3>
-                            <p>{{ book.description }}</p>
+                            <p class="text-justified">{{ book.description }}</p>
                         </div>
                     </div>
                 </div>

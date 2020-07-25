@@ -23,7 +23,7 @@ const BookMixin = {
                 })
             .then(response => {
                 app.$store.dispatch("setActiveId", { activeId: response.data })
-                window.location.href ="/books/" + response.data
+                window.location.href ="/books/" + title + "/" + response.data
             })
             .catch(err => {
                 console.log(err)
