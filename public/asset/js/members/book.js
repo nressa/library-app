@@ -13164,7 +13164,8 @@ const GenreMixin = {
             var app = this
             axios.post('/api/books/add/genre', data)
             .then(response => {
-                console.log(response.data)
+                console.log('added')
+                this.showBook()
             })
             .catch(err => {
                 console.log(err)

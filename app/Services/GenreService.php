@@ -18,13 +18,22 @@ class GenreService
     public function storeBookToGenre($bookId, $data)
     {
         for($i = 0; $i < count($data); $i++) {
-            $book = BookGenre::insert([
-                'fk_genre' => $data[$i] ,  
-                'fk_book' => $bookId, 
-                'deleted' => 0,
-                'created_at' => Carbon::now(), 
-                'updated_at' =>Carbon::now()
-            ]);
+
+            $book = BookGenre::where('fk_genre', $data[$i])
+                            ->where('fk_book', $bookId)
+                            ->first();
+
+            if(!$book) {
+
+                $book = BookGenre::insert(
+                    [   'fk_genre' => $data[$i] ,
+                        'fk_book' => $bookId,
+                        'created_at' => Carbon::now(),
+                        'deleted' => 0, 
+                        'updated_at' =>Carbon::now()
+                    ]);
+            }
+
         }
 
         return $data;
@@ -40,21 +49,5 @@ class GenreService
         }
 
         return $genres;
-    }  
-
-    public function addGenreToBook($data)
-    {
-
-        $genre = BookGenre::insert([
-            'fk_genre' => $data->genreId ,  
-            'fk_book' => $data->bookId, 
-            'deleted' => 0,
-            'created_at' => Carbon::now(), 
-            'updated_at' =>Carbon::now()
-        ]); 
-
-        $book = Book::find($data->bookId);
-        $book->updated_at = Carbon::now();
-        $book->save();
     }
 }

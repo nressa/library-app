@@ -13164,7 +13164,8 @@ const GenreMixin = {
             var app = this
             axios.post('/api/books/add/genre', data)
             .then(response => {
-                console.log(response.data)
+                console.log('added')
+                this.showBook()
             })
             .catch(err => {
                 console.log(err)
@@ -13304,11 +13305,11 @@ Vue.component('show-book-component', {
                                 </p>
                             </div>
                             <div class="row m-4">
-                                <select multiple class="form=oontroll col-sm-8 col-10 rounded-0">
+                                <select v-model="selected_genres" multiple class="form-control col-sm-8 col-10 rounded-0">
                                     <option disabled selected>--New Genre--</option>
                                     <option v-for="(option, i) in genres" :index="i" :value="option.id">{{ option.name }}</option>
                                 </select>
-                                <button type="button" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> <span class="d-md-inline d-sm-none d-none">ADD NEW</span></button>
+                                <button @click="addGenre" type="button" class="btn btn-primary rounded-0"><i class="fa fa-plus-circle"></i> <span class="d-md-inline d-sm-none d-none">ADD NEW</span></button>
                             </div>
 
                             <h3 class="mt-4"><i class="fa fa-info-circle"></i> Description:</h3>
@@ -13372,6 +13373,19 @@ Vue.component('show-book-component', {
             if(confirm("Do you want to remove " + this.book.title + "from your collection?")) {
                 this.removeBook()
             }
+        },
+        addGenre(){
+            if(this.selected_genres.length > 0){
+                var data = {
+                    'userId' : this.userId,
+                    'bookId' : this.book.id,
+                    'selected_genres': this.selected_genres
+                }
+                this.addBookGenre(data)
+            } else{
+                alert('Select new genre for ' + this.book.title + '.')
+            }
+            
         }
     },
     computed: {
