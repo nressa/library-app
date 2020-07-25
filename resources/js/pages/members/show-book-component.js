@@ -2,10 +2,9 @@ Vue.component('show-book-component', {
     template:
     `
         <div class="container">
-
             <div class="row justify-content-center">
                 <div class="col-md-8 col-sm-10 col-12">
-                    <div class="card shadow rounded">
+                    <div class="card shadow rounded mt-5 mb-5">
                         <div class="card-header bg-dark text-white">
                             <h3 class="d-inline"><i class="fa fa-thumb-tack"></i>  Title:</h3>
                             <h1 class="d-inline font-weight-bold">{{ book.title }}</h1>
@@ -89,8 +88,6 @@ Vue.component('show-book-component', {
                     </div>
                 </div>
             </div>
-
-            
         </div>
     `,
     props: ['userId', 'userEmail'],
