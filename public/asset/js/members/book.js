@@ -13251,7 +13251,7 @@ Vue.component('create-book-component', {
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-sm-10 col-12">
-                    <div class="card shadow rounded">
+                    <div class="card mt-5 mb-5 shadow rounded">
                         <div class="card-body">
                             <h3 class="text-center pt-5 pb-2 font-weight-bold"><i class="fa fa-pencil"></i> Add To List</h3>
                             <hr class="pb-4"/>

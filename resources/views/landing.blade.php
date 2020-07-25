@@ -13,7 +13,7 @@
                 </div>
                 <div class="box-footer">
                     <hr/>
-                    <a href="" class="btn btn-md btn-outline-primary rounded-pill">View All <i class="fa fa-arrow-right"></i></a>
+                    <a href="{{ route('books') }}" class="btn btn-md btn-outline-primary rounded-pill">View All <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
