@@ -9,6 +9,6 @@ const GenreMixin = {
             .catch(err => {
                 console.log(err)
             });
-        }
+        },
     }
 }
