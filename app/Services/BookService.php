@@ -53,9 +53,10 @@ class BookService
     {
 
         $book = Book::find($bookId);
-        $book->name = 'New book Name';
+        $book->deleted = 1;
+        $book->updated_at = Carbon::now();
         $book->save();
-
+        
         return $book;
     }
 }

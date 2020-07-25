@@ -47,6 +47,23 @@ const BookMixin = {
             });
 
         },
+        removeBook(){
+            var url = window.location.pathname
+            var bookId = url.substring(url.lastIndexOf('/') + 1)
+
+            axios({
+                method: 'post',
+                url: this.url + '/remove/' + bookId,
+                })
+            .then(response => {
+                this.showBook()
+                console.log('deleted: '+response.data.book)
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        },
         showBooks(){
             axios({
                 method: 'get',

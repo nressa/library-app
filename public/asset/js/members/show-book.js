@@ -13113,6 +13113,23 @@ const BookMixin = {
             });
 
         },
+        removeBook(){
+            var url = window.location.pathname
+            var bookId = url.substring(url.lastIndexOf('/') + 1)
+
+            axios({
+                method: 'post',
+                url: this.url + '/remove/' + bookId,
+                })
+            .then(response => {
+                this.showBook()
+                console.log('deleted: '+response.data.book)
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        },
         showBooks(){
             axios({
                 method: 'get',
@@ -13237,7 +13254,7 @@ Vue.component('show-book-component', {
                             <h3 class="d-inline"><i class="fa fa-thumb-tack"></i>  Title:</h3>
                             <h1 class="d-inline font-weight-bold">{{ book.title }}</h1>
 
-                            <button type="button" class="btn btn-danger float-right rounded-circle" title="Remove from collection" @click="removeBook">
+                            <button type="button" class="btn btn-danger float-right rounded-circle" title="Remove from collection" @click="remove">
                             <i class="fa fa-trash fa-lg"></i>
                             </button>
                         </div>
@@ -13281,11 +13298,12 @@ Vue.component('show-book-component', {
         this.showBook()
     },
     methods: {
-        removeBook(){
-            var remove = confirm("Do you want to remove " + this.book.title + "from your collection?");
+        remove(){
 
-            if(remove) {
-                alert(this.book.title + " was remove from your collection.")
+            if(confirm("Do you want to remove " + this.book.title + "from your collection?")) {
+                this.removeBook()
+                console.log(1)
+                // alert(this.book.title + " was remove from your collection.")
             }
         }
     },

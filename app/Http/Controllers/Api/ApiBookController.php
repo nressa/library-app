@@ -65,6 +65,6 @@ class ApiBookController extends Controller
         $bookService = new BookService;
         $result = $bookService->remove($id);
 
-        return $result;
+        return response(['success: ' => true], 200);
     }
 }
