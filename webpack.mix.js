@@ -53,3 +53,5 @@ mix.scripts(
         'resources/js/pages/book-vue-instance.js',
     ],
     'public/asset/js/members/list-book.js')
+
+mix.js('resources/js/components/home-component.js', 'public/js')
