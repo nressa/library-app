@@ -19,7 +19,7 @@
 <body>
     <div id="app">
         @include('layouts.include._navbar')
-        <main class="py-4">
+        <main class="py-4 mt-5">
             @yield('content')
         </main>
     </div>
