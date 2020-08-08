@@ -54,9 +54,10 @@ Vue.component('list-book-component', {
             }
         },
         paginateNext(){
-            if(this.books.next_page_url){
-                this.showBooks(this.books.next_page_url)
-            }
+            console.log(this.books.next_page_url)
+            // if(this.books.next_page_url){
+            //     this.showBooks(this.books.next_page_url)
+            // }
         },
         redirectByPage(pageNumber){
             this.showBooks(this.url+"?page="+pageNumber)
